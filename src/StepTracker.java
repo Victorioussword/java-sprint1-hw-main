@@ -2,10 +2,10 @@ import java.util.Scanner;
 import java.util.HashMap; // не будет использоваться
 
 public class StepTracker {
-    Converter converter = new Converter();
-    int[][] monthToData = new int[12][30]; // сразу инициализирован в месте объявления
-    int dayTarget = 10000;
-    Scanner scanner;
+    private Converter converter = new Converter();   // добавлен модификатор доступа privat
+    private Scanner scanner;
+    private int[][] monthToData = new int[12][30]; // сразу инициализирован в месте объявления
+    private int dayTarget = 10000;
 
     public StepTracker(Scanner scanner) {  //инициализирован сканер через параметры конструктора, передается уже готовый объект из Main
         this.scanner = scanner;
@@ -13,11 +13,10 @@ public class StepTracker {
 
     public void statistic(int month) {        //удалена ненужная переменная month1
 
-        if (month <= 0) {   // Введена проверка на отрицательное значение
-            System.out.println("Ошибка! Введено отрицательное число или 0" + "\n" + " * * * " + "\n");
+        if (month <= 0 || month>12) {   // Введена проверка на отрицательное значение
+            System.out.println("Ошибка ввода месяца! Введено отрицательное число, число больше 12 или 0" + "\n" + " * * * " + "\n");
         } else {
-            boolean cicleStarter = true;
-            while (cicleStarter) {
+            while (true) {
                 printMenuAct();
                 int userInput = scanner.nextInt();
 
@@ -59,8 +58,7 @@ public class StepTracker {
                         break;
                     case 0:
                         System.out.println("Ваш выбор - 0 - Выход в главное меню"+ "\n" + " * * * " + "\n");
-                        cicleStarter = false;
-                        break;
+                        return;   //вмесмто break имспользован return для выхода из программы, переменная типа boolean для запуска цикла удалена
                     default:
                         System.out.println("Такой команды не существует " + "\n" + " * * * " + "\n");
                 }
@@ -69,7 +67,7 @@ public class StepTracker {
     }
 
     public void saveSteps() {   //добавлен модификатор доступа "public"
-        this.scanner = scanner;
+
         System.out.println("Выберите месяц");
         printMenuMonth();
         int month = scanner.nextInt();
@@ -78,8 +76,8 @@ public class StepTracker {
         System.out.println("Введите пройденные шаги");
         int inSteps = scanner.nextInt();
 
-        if (inSteps < 0 || day < 0 || month<0) {   // Введена проверка на отрицательное значение
-            System.out.println("Ошибка! Введено отрицательное число");
+        if (inSteps < 0 || day < 0 || month<0 || day>30 || month>12) {   // 1. Введена проверка на отрицательное значение 2. Введена проверка верхней границы
+            System.out.println("Ошибка ввода!");
         } else {
             monthToData[month - 1][day - 1] = inSteps;
             System.out.println("Вы ввели " + inSteps + " шагов.");
@@ -156,23 +154,18 @@ public class StepTracker {
 
         int bestSeries = 0;
         int currentSeries = 0;
-        for (int j = 0; j < 30; j++) {
-            if (monthToData[month - 1][j] >= dayTarget) {
+        for (int j = 0; j < 30; j++) {   // оптимимизирован поиск серии, удалена лишняя проверка
+            if (monthToData[month - 1][j] >= dayTarget || currentSeries > bestSeries) {
                 currentSeries++;
-            } else {
-                if (currentSeries > bestSeries) {
-                    bestSeries = currentSeries;
-                }
-                currentSeries = 0;
-            }
-            if (currentSeries > bestSeries) {
                 bestSeries = currentSeries;
+            } else {
+                currentSeries = 0;
             }
         }
         return bestSeries;
     }
 
-        public void showMecurentTarget () {
+    public void showMecurentTarget () {
             System.out.println("Текущая цель составляет " + dayTarget + "\n" + "* * *");
         }
     }

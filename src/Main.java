@@ -5,11 +5,10 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         StepTracker stepTracker = new StepTracker(scanner);
-        boolean cicleStarter = true;
-        while (cicleStarter){    // используется конструкция switch/case (вместо if/else)
+
+        while (true){    // используется конструкция switch/case (вместо if/else)
             printMenu();
             int userInput = scanner.nextInt();
-
 
             switch (userInput) {
                 case 1:
@@ -20,20 +19,19 @@ public class Main {
 
                 case 2:
                     System.out.println("Вы выбрали - 2 - Ввод пройденного количества шагов за день");
-                    stepTracker.saveSteps();  // лишние объекты сканнера удалены, число сразу предается в метод
+                    stepTracker.saveSteps();   // лишние объекты сканнера удалены, число сразу предается в метод
                     break;
 
                 case 3:
                     System.out.println("Вы выбрали - 3 - Вывод статистики за определенный месяц");
-                    stepTracker.printMenuMonth();
-                    stepTracker.statistic(scanner.nextInt());  // лишние объекты сканнера удалены
+                    StepTracker.printMenuMonth();
+                    stepTracker.statistic(scanner.nextInt());   // лишние объекты сканнера удалены
                      break;
 
                 case 0:
                     System.out.println("Программа завершена");
                     scanner.close();    // Добалено закрытие сканнера
-                    cicleStarter = false;
-                    break;
+                    return;     //вмесмто break имспользован return для выхода из программы, переменная типа boolean для запуска цикла удалена
 
                 default:
             System.out.println("Такой команды не существует "+"\n"+" * * * " + "\n");
