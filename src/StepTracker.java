@@ -13,7 +13,7 @@ public class StepTracker {
 
     public void statistic(int month) {        //удалена ненужная переменная month1
 
-        if (month <= 0 || month>12) {   // Введена проверка на отрицательное значение
+        if (month <= 0 || month>12) {   // Введена проверка на отрицательное значения и значения больше 12
             System.out.println("Ошибка ввода месяца! Введено отрицательное число, число больше 12 или 0" + "\n" + " * * * " + "\n");
         } else {
             while (true) {
@@ -67,7 +67,7 @@ public class StepTracker {
     }
 
     public void saveSteps() {   //добавлен модификатор доступа "public"
-
+                                                           // Удален не нежный сканнер
         System.out.println("Выберите месяц");
         printMenuMonth();
         int month = scanner.nextInt();
