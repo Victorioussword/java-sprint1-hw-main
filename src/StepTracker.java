@@ -76,7 +76,7 @@ public class StepTracker {
         System.out.println("Введите пройденные шаги");
         int inSteps = scanner.nextInt();
 
-        if (inSteps < 0 || day < 0 || month<0 || day>30 || month>12) {   // 1. Введена проверка на отрицательное значение 2. Введена проверка верхней границы
+        if (inSteps < 0 || day < 1 || month<1 || day>30 || month>12) {   // 1. Введена проверка на отрицательное значение 2. Введена проверка верхней границы 3. Откорректированы условия day<1 и month<1
             System.out.println("Ошибка ввода!");
         } else {
             monthToData[month - 1][day - 1] = inSteps;
@@ -155,9 +155,10 @@ public class StepTracker {
         int bestSeries = 0;
         int currentSeries = 0;
         for (int j = 0; j < 30; j++) {   // оптимимизирован поиск серии, удалена лишняя проверка
-            if (monthToData[month - 1][j] >= dayTarget || currentSeries > bestSeries) {
+            if (monthToData[month - 1][j] >= dayTarget) { // откорректировн поиск лучшей серии
                 currentSeries++;
-                bestSeries = currentSeries;
+                if (bestSeries < currentSeries)
+                    bestSeries = currentSeries;
             } else {
                 currentSeries = 0;
             }
