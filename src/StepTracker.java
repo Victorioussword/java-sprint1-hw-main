@@ -1,5 +1,4 @@
 import java.util.Scanner;
-import java.util.HashMap; // не будет использоваться
 
 public class StepTracker {
     private Converter converter = new Converter();   // добавлен модификатор доступа privat
@@ -67,7 +66,7 @@ public class StepTracker {
     }
 
     public void saveSteps() {   //добавлен модификатор доступа "public"
-                                                           // Удален не нежный сканнер
+                                                           // Удален не нужный сканнер
         System.out.println("Выберите месяц");
         printMenuMonth();
         int month = scanner.nextInt();
@@ -84,23 +83,23 @@ public class StepTracker {
         }
     }
 
-    public static void printMenuMonth() {
-        System.out.println("Выберете месяц");
-        System.out.println("1 - Январь");
-        System.out.println("2 - Февраль");
-        System.out.println("3 - Март");
-        System.out.println("4 - Апрель");
-        System.out.println("5 - Май");
-        System.out.println("6 - Июнь");
-        System.out.println("7 - Июль");
-        System.out.println("8 - Август");
-        System.out.println("9 - Сентябрь");
-        System.out.println("10 - Октябрь");
-        System.out.println("11 - Ноябрь");
-        System.out.println("12 - Декабрь");
+    public static void printMenuMonth() {  // Убрать модификатор доступа static не возможно, так как метод используется и в классе StaepTraker и в классе Main
+       System.out.println("Выберете месяц");
+       System.out.println("1 - Январь");
+       System.out.println("2 - Февраль");
+       System.out.println("3 - Март");
+       System.out.println("4 - Апрель");
+       System.out.println("5 - Май");
+       System.out.println("6 - Июнь");
+       System.out.println("7 - Июль");
+       System.out.println("8 - Август");
+       System.out.println("9 - Сентябрь");
+       System.out.println("10 - Октябрь");
+       System.out.println("11 - Ноябрь");
+       System.out.println("12 - Декабрь");
     }
 
-    private static void printMenuAct() {
+    private void printMenuAct() {    // убран модификатор доступа static
         System.out.println("\n" + "Что вы хотите сделать?");
         System.out.println("1 - Показать количество пройденных шагов по дням");
         System.out.println("2 - Показать общее количество шагов за месяц");
